@@ -1,14 +1,24 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useState } from "react";
 import "./Post-Info.css";
 
 const PostInfo = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const queryQlient = useQueryClient();
+
+    const [index, setIndex] = useState(0);
+
+    const nextSlide = () => {
+        index < detailInfo?.gambar.length - 1 ? setIndex((prev) => prev + 1) : setIndex(0);
+        console.log(index);
+    }
+
+    const prevSlide = () => {
+        index > 0 ? setIndex((prev) => prev - 1) : setIndex(0);
+        console.log(index);
+    }
     
     const { data: detailInfo, error } = useQuery({
         queryKey: ["postingan", id],
@@ -27,18 +37,6 @@ const PostInfo = () => {
         staleTime: 4000,
         cacheTime: 300000
     });
-
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        adaptiveHeight: true,
-        arrows: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-    }
 
     const removeMutation = useMutation({
         mutationFn: async () => {
@@ -65,27 +63,48 @@ const PostInfo = () => {
 
     return (
         <div className="post-detail">
-            <Link to="/">Kembali</Link>
-            {error ? <p>{error.message}</p> : 
-                <>
-                    <Slider {...settings}>
-                        {detailInfo?.gambar.map((gb, index) => (
-                            <div key={index} className="image-zone">
-                                <img 
-                                    className="images" key={index} 
-                                    src={`http://localhost:3602/uploads/${encodeURIComponent(gb)}`} 
-                                    alt={`Slide-${index + 1}`}
-                                />
+            <div className="contents">
+                {error ? <p>{error.message}</p> : 
+                    <div className="instagram-style">
+                        <div className="carousel-wrapper">
+                            <div className="carousel-container" 
+                                style={{ transform: `translateX(-${index * 100}%)` }}>
+                                {detailInfo?.gambar.map((gb, i) => (
+                                    <div key={i} className="slide">
+                                        <img 
+                                            src={`http://localhost:3602/uploads/${encodeURIComponent(gb)}`} 
+                                            alt={`Slide-${i + 1}`}
+                                        />
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </Slider>
-                    <div className="post-caption">
-                        <p>{detailInfo?.caption}</p>
-                        <button type="button" onClick={() => deletePost()}>🗑️</button>
+                            
+                            <div className="navigation-buttons">
+                                <button className="nav-btn prev" onClick={prevSlide}>&larr;</button>
+                                <button className="nav-btn next" onClick={nextSlide}>&rarr;</button>
+                            </div>
+                            
+                            <div className="pagination-dots">
+                                {detailInfo?.gambar.map((_, i) => (
+                                    <div 
+                                        key={i} 
+                                        className={`dot ${i === index ? 'active' : ''}`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="caption-section">
+                            <p>{detailInfo?.caption}</p>
+                            <div className="action-buttons">
+                                <button onClick={deletePost}>Hapus</button>
+                                <Link to="/">Kembali</Link>
+                            </div>
+                        </div>
                     </div>
-                </>
-            }
-        </div>        
+                }
+            </div>
+        </div>
     )
 }
 
