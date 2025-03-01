@@ -1,0 +1,46 @@
+.user .control {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 12px;
+    align-items: center;
+}
+
+.user .control a, .user .control button {
+    border: 0.5px solid darkblue;
+    text-decoration: none;
+    background-color: rgb(255, 255, 255);
+    color: darkblue;
+    padding: 6px;
+    text-align: center;
+    cursor: pointer;
+    font-family: Tahoma;
+    font-size: 16px;
+    width: 140px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.user .control form[name="search-user"] {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+}
+
+.user .control form[name="search-user"] input {
+    border: 0.5px solid darkblue;
+    background-color: rgb(255, 255, 255);
+    color: darkblue;
+    padding: 6px;
+    font-family: Tahoma;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+.user .control form[name="search-user"] button {
+    width: 48px;
+    cursor: pointer;
+}

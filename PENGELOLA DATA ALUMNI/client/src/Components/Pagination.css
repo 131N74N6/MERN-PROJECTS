@@ -1,0 +1,40 @@
+.pagination {
+    background-color: white;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 6px rgba(0,0,0,0.323);
+    font-size: 1rem;
+    color: #000;
+    font-family: Arial;
+    width: 79dvw;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination button {
+    color: #000;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+}
+
+.pagination button:hover {
+    color: red;
+}
+
+@media (max-width:1025px) and (min-width:838px) {
+    .pagination{
+        width: 92.7dvw;
+    }
+}
+
+@media (max-width:838px) {
+    .pagination{
+        width: 90.5dvw;
+    }
+}

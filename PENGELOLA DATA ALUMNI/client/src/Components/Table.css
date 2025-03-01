@@ -1,0 +1,98 @@
+table {
+    text-transform: capitalize;
+    border-collapse: collapse;
+}
+
+table thead th {
+    padding: 0.6rem;
+    font-family: Arial;
+    font-size: 1.1rem;
+    border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #fddfdf;
+    border: none;
+}
+
+table tbody tr td {
+    padding: 0.6rem;
+    font-family: Arial;
+    font-size: 1rem;
+}
+
+table tbody tr td.controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+table tbody tr td.controls a:nth-child(1) {
+    font-size: 1rem;
+    background-color: #1c5529;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+table tbody tr td.controls a:nth-child(2) {
+    font-size: 1rem;
+    background-color: #39804a;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+table tbody tr td.controls button {
+    font-size: 1rem;
+    border: none;
+    background-color: #7d7d7d;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+@media (max-width:1025px) and (min-width:838px) {
+    table {
+        width: 91dvw;
+        padding: 1rem;
+    }
+}
+
+@media (max-width:838px) {
+    table {
+        min-width:83dvw;
+        padding: 1rem;
+    }
+
+    table thead th{
+        display:none;
+    }
+
+    table tbody tr td{
+        padding:0.7rem 0.7rem 0.7rem 0.7rem;
+        display:block;
+        border: none;
+        text-align:right;
+    }
+
+    table tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+        color: #6e3f3f;
+    }   
+
+    table tbody tr:nth-child(even) {
+        background-color: #8cfdff;
+        color: rgb(34, 22, 22);
+    }
+
+    table tbody tr td::before{
+        content:attr(data-title) ": ";
+        float:left;
+    }
+}

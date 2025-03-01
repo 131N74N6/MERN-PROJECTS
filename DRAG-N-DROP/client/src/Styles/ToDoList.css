@@ -1,0 +1,70 @@
+.list-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 100dvh;
+    gap: 1.7rem;
+    position: relative;
+    background-color: rgb(62, 62, 62);
+    color: white;
+    padding: 1rem;
+    text-transform: uppercase;
+}
+
+.list-group-dim {
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 100dvh;
+    gap: 1.7rem;
+    position: relative;
+    padding: 1rem;
+    background-color: rgb(62, 62, 62);
+    filter: opacity(0.4);
+}
+
+form[title="drag-drop-2"] {
+    background-color: rgb(42,42,42);
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+form[title="drag-drop-2"] input#enter-list {
+    padding: 0.4rem;
+    border: 1.5px solid orange;
+    outline: none;
+    color: orange;
+    font-size: 1rem;
+    background-color: black;
+    border-radius: 0.4rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+input#enter-list::placeholder {
+    font-family: Arial;
+    color: darkorange;
+}
+
+select[name="kategori_id"] {
+    outline: none;
+    padding: 0.4rem;
+    border: 1.5px solid white;
+    font-size: 1rem;
+    border-radius: 0.4rem;
+    background-color: black;
+    color: yellow;
+}
+
+form[title="drag-drop-2"] button {
+    cursor: pointer;
+    padding: 0.4rem;
+    border: 1.5px solid orange;
+    color: orange;
+    font-size: 1rem;
+    background-color: black;
+    border-radius: 0.4rem;
+}

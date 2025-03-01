@@ -1,0 +1,11 @@
+.loading-session {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    font-size: 2rem;
+    font-family: Times;
+    font-weight: bold;
+    background-color: rgb(30,30,30);
+    color: yellowgreen;
+}

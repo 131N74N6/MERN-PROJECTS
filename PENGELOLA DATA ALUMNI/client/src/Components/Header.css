@@ -1,0 +1,126 @@
+header.header-1 {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 92dvh;
+    padding: 1rem;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.323);
+    width: 15dvw;
+}
+
+header.header-1 a {
+    text-decoration: none;
+    color: #616161;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    font-family: Arial;
+}
+
+header.header-2 {
+    display: none;
+}
+
+header.header-2 input[type="checkbox"] {
+    display: none;
+}
+
+@media (max-width:1025px) and (min-width:838px) {
+    header.header-1 {
+        display: none;
+    }
+
+    header.header-2 {
+        display: flex;
+        padding: 1rem;
+        align-items: center;
+        background-color: #ffffff;
+        width: 90dvw;
+        min-height: 5dvh;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.323);
+    }
+
+    header.header-2 i {
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #000;
+    }
+    
+    header.header-2 .header-2-content .sidebar {
+        position: absolute;
+        background-color: #ffffff;
+        top: 80px;
+        left: -500px;
+        padding: 1rem;
+        transition: 0.5s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.324);
+        gap: 1rem;
+        min-height: 87dvh;
+    }
+
+    header.header-2 .header-2-content .sidebar a {
+        text-decoration: none;
+        color: #616161;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.5rem;
+        font-family: Arial;
+    }
+
+    header.header-2 input[type="checkbox"]:checked + .sidebar {
+        transition: 0.5s ease-in-out;
+        left: 0;
+    }
+}
+
+@media (max-width:838px) {
+    header.header-1 {
+        display: none;
+    }
+
+    header.header-2 {
+        display: flex;
+        padding: 1rem;
+        align-items: center;
+        background-color: #ffffff;
+        width: 85.7dvw;
+        min-height: 5dvh;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.323);
+    }
+
+    header.header-2 i {
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #000;
+    }
+    
+    header.header-2 .header-2-content .sidebar {
+        position: absolute;
+        background-color: #ffffff;
+        left: -500px;
+        padding: 1rem;
+        top: 80px;
+        transition: 0.5s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.324);
+        gap: 1rem;
+        min-height: 87dvh;
+    }
+
+    header.header-2 .header-2-content .sidebar a {
+        text-decoration: none;
+        color: #616161;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.5rem;
+        font-family: Arial;
+    }
+
+    header.header-2 input[type="checkbox"]:checked + .sidebar {
+        transition: 0.5s ease-in-out;
+        left: 0;
+    }
+}

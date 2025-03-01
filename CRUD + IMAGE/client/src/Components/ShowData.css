@@ -1,0 +1,76 @@
+.user .submitted-data {
+    color: rgb(29, 38, 106);
+    display: flex;
+    justify-content: center;
+    min-height: 100dvh;
+    align-items: center;
+}
+
+.user .submitted-data .show-data {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    font-family: Calibri;
+}
+
+.user .submitted-data .show-data .data-id {
+    border: 1px solid purple;
+    padding: 12px;
+    border-top-left-radius: 10px;
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    font-family: Calibri;
+    font-size: 18px;
+    box-shadow: 5px 5px purple;
+    width: 250px;
+    text-transform: capitalize;
+}
+
+.user .submitted-data .show-data .data-id .data-handler {
+    display: flex;
+    gap: 12px;
+}
+
+.user .submitted-data .show-data .data-id a {
+    background-color: darkblue;
+    color: white;
+    width: 97px;
+    padding: 8px;
+    text-align: center;
+    font-size: 1.05rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.user .submitted-data .show-data .data-id button:nth-child(2) {
+    background-color: rgb(12, 90, 43);
+    color: white;
+    width: 97px;
+    text-align: center;
+    padding: 8px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.user .img-container {
+    width: 120px;
+    height: 120px;
+}
+
+.user .img-container img {
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
