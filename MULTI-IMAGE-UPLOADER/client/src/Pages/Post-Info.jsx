@@ -63,7 +63,7 @@ const PostInfo = () => {
 
     return (
         <div className="post-detail">
-            <div className="user"><Link to={`/user`}>{detailInfo?.nama}</Link></div>
+            <div className="user">{detailInfo?.nama}</div>
             <div className="contents">
                 {errorInfo? <p>{errorInfo.message}</p> : infoIsLoad ? <p>Loading...</p> :
                     <div className="instagram-style">
