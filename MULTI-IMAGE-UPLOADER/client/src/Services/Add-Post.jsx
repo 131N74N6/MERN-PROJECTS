@@ -1,12 +1,19 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import "../Components/Form.css";
+import "./Add-Post.css";
 
 const AddPost = () => {
     const queryQlient = useQueryClient();
     const navigate = useNavigate();
     const imgRef = useRef();
+    const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        if (!token) {
+            navigate("/sign-in");
+        }
+    }, [navigate]);
 
     const [post, setPost] = useState({ caption: "", gambar: [], preview: [] });
     const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +77,7 @@ const AddPost = () => {
             }
 
             const request = await fetch(`http://localhost:3602/user-post/add`, { 
-                method: "POST", body: formData
+                method: "POST", body: formData, headers: { "Authorization":  `Bearer ${token}` }
             });
             if (request.ok) {
                 const response = await request.json();
@@ -100,9 +107,8 @@ const AddPost = () => {
     }
     
     return (
-        <>
-            <Link to={"/"}>Kembali</Link>
-            <div className="upload-field">
+        <div className="upload-field">
+            <form title="img-uploader" onSubmit={addNewPost}> 
                 <div className="image-preview">
                     {isLoading ? <p>loading...</p> : error ? <p>{error}</p> : 
                         post?.preview?.map((prev, index) => (
@@ -112,17 +118,16 @@ const AddPost = () => {
                         ))
                     }
                 </div>
-                <form title="img-uploader" onSubmit={addNewPost}> 
-                    <input type="file" name="gambar" onChange={showImage} multiple ref={imgRef} accept="image/*"/>
-                    <div className="tanda" onClick={referTo}>Klik disini untuk memilih file</div>
-                    <input 
-                        type="text" name="caption" onChange={handleInput} value={post.caption} 
-                        placeholder="tulis caption"
-                    />
-                    <button type="submit">Add +</button> 
-                </form>
-            </div>
-        </>
+                <input type="file" name="gambar" onChange={showImage} multiple ref={imgRef} accept="image/*"/>
+                <div className="tanda" onClick={referTo}>Klik disini untuk memilih file</div>
+                <input 
+                    type="text" name="caption" onChange={handleInput} value={post.caption} 
+                    placeholder="tulis caption"
+                />
+                <button type="submit"><i className="fa-solid fa-plus"></i></button>
+                <Link to={"/"}>Kembali</Link>
+            </form>
+        </div>
     )
 }
 

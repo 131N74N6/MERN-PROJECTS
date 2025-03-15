@@ -1,0 +1,44 @@
+.signInPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.signInPage form {
+    box-shadow: 0 0 10px rgba(0,0,0,0.323);
+    font-family: Calibri;
+    border-radius: 10px;
+    background-color: white;
+    padding: 1rem;
+}
+
+.signInPage form h1 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.signInPage form .to-signup {
+    text-align: center;
+    font-size: 1rem;
+    font-family: Calibri;
+    margin-top: 1rem;
+}
+
+.signInPage form .to-signup span {
+    color: #a07171;
+    cursor: pointer;
+}
+
+.signInPage form button {
+    margin-top: 1rem;
+    color: white;
+    background-color: #a07171;
+    width: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+}

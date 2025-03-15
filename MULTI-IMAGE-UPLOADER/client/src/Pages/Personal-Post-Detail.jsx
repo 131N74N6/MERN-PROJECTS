@@ -1,16 +1,16 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
-import "./Post-Info.css";
+import "./Personal-Post-Detail.css";
 
-const PostInfo = () => {
+const Personal_Post_Detail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-
-    const token = localStorage.getItem("token");
+    const queryQlient = useQueryClient();
     const [index, setIndex] = useState(0);
-
+    
+    const token = localStorage.getItem("token");
     useEffect(() => {
         if (!token) {
             navigate("/sign-in");
@@ -61,9 +61,32 @@ const PostInfo = () => {
         cacheTime: 300000
     });
 
+    const removePostMutation = useMutation({
+        mutationFn: async () => {
+            const request = await fetch(`http://localhost:3602/user-post/delete/${id}`, { 
+                method: "DELETE"
+            });
+            if (request.ok) {
+                const response = await request.json();
+                return response;
+            }
+            else {
+                throw new Error("GAGAL MENGHAPUS POSTINGAN");
+            }
+        },
+        onSuccess: () => { 
+            queryQlient.invalidateQueries(["postingan", id]),
+            navigate("/");
+        }
+    });
+
+    const deletePost = async () => {
+        removePostMutation.mutate();
+    }
+
     return (
         <div className="post-detail">
-            <div className="user"><Link to={`/user`}>{detailInfo?.nama}</Link></div>
+            <div className="user"><Link to={"/"}>{detailInfo?.nama}</Link></div>
             <div className="contents">
                 {errorInfo? <p>{errorInfo.message}</p> : infoIsLoad ? <p>Loading...</p> :
                     <div className="instagram-style">
@@ -96,7 +119,8 @@ const PostInfo = () => {
                             <p>{detailInfo?.caption}</p>
                             <span>{detailInfo?.waktu}</span>
                             <div className="action-buttons">
-                                <Link to="/home">Kembali</Link>
+                            <button onClick={deletePost}>Hapus</button>
+                                <Link to="/">Kembali</Link>
                             </div>
                         </div>
                     </div>
@@ -122,4 +146,4 @@ const PostInfo = () => {
     )
 }
 
-export default PostInfo;
+export default Personal_Post_Detail;

@@ -1,0 +1,21 @@
+.loading-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+}
+
+.loading-section > i {
+    font-size: 1.6rem;
+    animation: rotating 0.5s ease linear infinite;
+    color: rgb(66, 110, 109);
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

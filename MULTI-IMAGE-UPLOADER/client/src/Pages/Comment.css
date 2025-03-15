@@ -1,0 +1,19 @@
+.commentSection form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.commentSection form button {
+    background-color: rgb(18, 18, 70);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 90px;
+}
+
+.commentSection form button > i {
+    color: #ffff;
+    font-size: 1rem;
+}

@@ -1,0 +1,29 @@
+.inputGroup {
+    margin-bottom: 1.3rem;
+    flex-direction: column;
+    gap: 7px;
+    display: flex;
+}
+
+.inputLabel {
+    color: #000;
+    text-align: left;
+    font-family: Arial;
+    font-size: 17px;
+}
+
+.input {
+    width: 221px;
+    height: 26px;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-family: Caladea, serif;
+    font-size: 16px;
+    background-color: white;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #a07171;
+}

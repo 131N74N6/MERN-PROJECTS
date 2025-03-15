@@ -1,73 +1,50 @@
-.home-content {
-    --background: #f0f2f5;
-    --primary: #2d3436;
-    --accent: #0984e3;
-    --danger: #d63031;
-    --card-bg: #ffffff;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    padding: 20px;
-    background-color: var(--background);
-    min-height: 100vh;
+.home header {
+    padding: 0.6rem;
+    box-shadow: 0 0 6px rgba(0,0,0,0.323);
+    position: sticky;
+    background-color: white;
+    top: 0;
+    z-index: 100;
 }
 
-.feature {
+.home header form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #dfe6e9;
-}
-
-.feature a {
-    background-color: var(--accent);
-    color: white;
-    padding: 10px 25px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: transform 0.2s;
-}
-
-.feature a:hover {
-    transform: translateY(-2px);
-}
-
-.feature button {
-    background-color: var(--danger);
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-.feature button:hover {
-    opacity: 0.9;
-}
-
-.post-content {
-    display: flex;
-    gap: 0.1rem;
     justify-content: center;
+    gap: 0.6rem;
     flex-wrap: wrap;
 }
 
-/* Untuk layar kecil (mobile) */
-@media (max-width: 600px) {
-    .home-content {
-        padding: 10px;
-    }
-    
-    .feature {
-        flex-direction: column;
-        gap: 15px;
-        padding-bottom: 25px;
-    }
-    
-    .post-content {
-        grid-template-columns: 1fr;
-    }
+.home header form input[type="search"] {
+    width: 228px;
+    height: 35px;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    font-family: Caladea, serif;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.home header form input[type="search"]:focus {
+    outline: none;
+    border-color: #a07171;
+}
+
+.home header form button {
+    cursor: pointer;
+    background-color: rgb(72, 102, 72);
+    color: #ffff;
+    width: 90px;
+    border-radius: 8px;
+    padding: 0.6rem;
+    border: none;
+}
+
+.home .display-post {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.4rem;
+    min-height: 100dvh;
+    padding: 0.8rem;
 }

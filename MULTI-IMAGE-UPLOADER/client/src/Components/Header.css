@@ -1,0 +1,19 @@
+.header-nav-bar {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding: 0.8rem;
+    top: 80%;
+    box-shadow: 0 0 6px rgba(0,0,0,0.323);
+}
+
+.header-nav-bar nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.3rem;
+}
+
+.header-nav-bar nav a {
+    text-decoration: none;
+    font-size: 1.5rem;
+}
