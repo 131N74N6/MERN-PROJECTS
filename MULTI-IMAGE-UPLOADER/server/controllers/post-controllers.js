@@ -5,6 +5,7 @@ const getAllPost = async (req, res) => {
     try {
         const sql = `
             SELECT
+                pengguna.id AS id_pengguna,
                 pengguna.username AS nama,
                 postingan.id AS id, 
                 postingan.caption AS caption, 
@@ -13,7 +14,7 @@ const getAllPost = async (req, res) => {
             FROM user AS pengguna  
             JOIN postingan ON pengguna.id = postingan.user_id
             JOIN media ON postingan.id = media.postingan_id
-            GROUP BY pengguna.username, postingan.id, postingan.caption, postingan.created_at`;
+            GROUP BY pengguna.id, pengguna.username, postingan.id, postingan.caption, postingan.created_at`;
 
         const [result] = await db.query(sql);
         res.status(200).json({ status: 200, data: result });
@@ -23,11 +24,12 @@ const getAllPost = async (req, res) => {
     }
 }
 
-const getUserPost = async (req, res) => {
+const getPersonalPost = async (req, res) => {
     try {
         const userName = req.user.username;
         const sql = `
             SELECT
+                pengguna.id AS id_pengguna,
                 pengguna.username AS nama,
                 postingan.id AS id, 
                 postingan.caption AS caption, 
@@ -37,9 +39,34 @@ const getUserPost = async (req, res) => {
             LEFT JOIN postingan ON pengguna.id = postingan.user_id
             LEFT JOIN media ON postingan.id = media.postingan_id
             WHERE pengguna.username = ?
-            GROUP BY pengguna.username, postingan.id, postingan.caption, postingan.created_at`;
+            GROUP BY pengguna.id, pengguna.username, postingan.id, postingan.caption, postingan.created_at`;
 
         const [result] = await db.query(sql, [userName]);
+        res.status(200).json({ status: 200, data: result });
+    } 
+    catch (error) {
+        res.status(500).json({ status: 500, msg: "INTERNAL SERVER ERROR" });
+    }
+}
+
+const getUserPost = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const sql = `
+            SELECT
+                pengguna.id AS id_pengguna,
+                pengguna.username AS nama,
+                postingan.id AS id, 
+                postingan.caption AS caption, 
+                postingan.created_at AS waktu,
+                JSON_ARRAYAGG(media.gambar) AS gambar
+            FROM user AS pengguna  
+            LEFT JOIN postingan ON pengguna.id = postingan.user_id
+            LEFT JOIN media ON postingan.id = media.postingan_id
+            WHERE pengguna.id = ?
+            GROUP BY pengguna.id, pengguna.username, postingan.id, postingan.caption, postingan.created_at`;
+
+        const [result] = await db.query(sql, [userId]);
         res.status(200).json({ status: 200, data: result });
     } 
     catch (error) {
@@ -52,6 +79,7 @@ const getDataByFilter = async (req, res) => {
         const search = req.query.q;
         const sql = `
             SELECT
+                pengguna.id AS id_pengguna,
                 pengguna.username AS nama,
                 postingan.id AS id, 
                 postingan.caption AS caption, 
@@ -61,7 +89,7 @@ const getDataByFilter = async (req, res) => {
             JOIN postingan ON pengguna.id = postingan.user_id
             JOIN media ON postingan.id = media.postingan_id
             WHERE postingan.caption LIKE ? OR pengguna.username LIKE ?
-            GROUP BY pengguna.username, postingan.id, postingan.caption, postingan.created_at`;
+            GROUP BY pengguna.id, pengguna.username, postingan.id, postingan.caption, postingan.created_at`;
 
         const values = [`%${search}%`, `%${search}%`];
         const [result] = await db.query(sql, values);
@@ -115,6 +143,7 @@ const selectPost = async (req, res) => {
     try {        
         const sql = `
             SELECT
+                pengguna.id AS id_pengguna,
                 pengguna.username AS nama,
                 postingan.id AS id, 
                 postingan.caption AS caption, 
@@ -170,31 +199,34 @@ const deletePost = async (req, res) => {
     }
 }
 
-const deleteAllPost = async (req, res) => {
+const deleteAllUserPost = async (req, res) => {
     let database;
     try {
         database = await db.getConnection();
         await database.beginTransaction();
 
-        const sql1 = "SELECT gambar, postingan_id FROM media";
-        const [mediaRecords] = await database.query(sql1);
+        const userId = req.user.id;
+        const sql1 = `SELECT media.id, media.gambar AS gambar 
+            FROM media JOIN postingan ON media.postingan_id = postingan.id
+            WHERE postingan.user_id = ?`;
+        const [mediaRecords] = await database.query(sql1, [userId]);
 
         await Promise.all(mediaRecords.map((media) => 
             fs.promises.unlink(`uploads/${media.gambar}`).catch(() => {/* ignore error */})
         ));
 
-        const sql2 = "DELETE FROM media";
-        await database.query(sql2);
+        const sql2 = `DELETE FROM media 
+            JOIN postingan ON media.postingan_id = postingan.id 
+            WHERE postingan.user_id = ?`;
+        await database.query(sql2, [userId]);
 
-        const sql3 = "DELETE FROM komentar";
-        await database.query(sql3);
+        const sql3 = `DELETE FROM komentar 
+            JOIN postingan ON komentar.postingan_id = postingan.id 
+            WHERE postingan.user_id = ?`;
+        await database.query(sql3, [userId]);
         
-        const sql4 = "DELETE FROM postingan";
-        await database.query(sql4);
-
-        // Reset auto increment
-        await database.query("ALTER TABLE media AUTO_INCREMENT = 1");
-        await database.query("ALTER TABLE postingan AUTO_INCREMENT = 1");
+        const sql4 = "DELETE FROM postingan WHERE user_id = ?";
+        await database.query(sql4, [userId]);
 
         await database.commit();
         res.status(200).json({ status: 200, msg: "SEMUA POSTINGAN BERHASIL DIHAPUS" });
@@ -208,4 +240,7 @@ const deleteAllPost = async (req, res) => {
     }
 }
 
-export { addPost, getAllPost, getDataByFilter, getUserPost, deleteAllPost, deletePost, selectPost }
+export { 
+    addPost, getAllPost, getDataByFilter, getPersonalPost, 
+    getUserPost, deleteAllUserPost, deletePost, selectPost 
+}

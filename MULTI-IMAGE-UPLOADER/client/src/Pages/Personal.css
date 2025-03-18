@@ -19,6 +19,10 @@
     background-color: #ffff;
 }
 
+.home-content .feature .user {
+    color: black;
+}
+
 .home-content .feature input[type="checkbox"] {
     display: none;
 }
@@ -66,4 +70,32 @@
     gap: 0.4rem;
     min-height: 100dvh;
     padding: 0.8rem;
+}
+
+.home-content .message {
+    color: rgba(76, 183, 240, 0.966);
+    font-size: 1.3rem;
+    font-family: Arial;
+}
+
+[dark="yes"] .home-content {
+    background-color: black;
+}
+
+[dark="yes"] .home-content .feature {
+    background-color: black;
+    box-shadow: 0 0 6px rgba(76, 183, 240, 0.966);
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .home-content .feature .user {
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .home-content .feature label {
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .home-content .message {
+    color: rgba(76, 183, 240, 0.966);
 }

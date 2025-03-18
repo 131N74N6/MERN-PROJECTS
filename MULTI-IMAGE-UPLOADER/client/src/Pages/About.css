@@ -1,0 +1,36 @@
+.account-setting {
+    display: flex;
+    justify-content: center;
+    background-color: #ffff;
+    min-height: 100dvh;
+    padding: 1rem;
+}
+
+.config-choice {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.config-choice button {
+    box-shadow: 0 0 6px rgba(0,0,0,0.323);
+    background-color: #ffff;
+    padding: 0.6rem;
+    outline: none;
+    border: none;
+    font-family: Arial;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 0.6rem;
+    width: 300px;
+}
+
+[dark="yes"] .account-setting {
+    background-color: black;
+}
+
+[dark="yes"] .account-setting .config-choice button {
+    color: rgba(76, 183, 240, 0.966);
+    background-color: rgb(34, 33, 33);
+    border: 1.2px solid rgba(76, 183, 240, 0.966);
+}

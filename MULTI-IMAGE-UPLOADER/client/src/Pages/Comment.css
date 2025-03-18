@@ -2,6 +2,9 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
 }
 
 .commentSection form button {
@@ -16,4 +19,18 @@
 .commentSection form button > i {
     color: #ffff;
     font-size: 1rem;
+}
+
+[dark="yes"] .commentSection form input {
+    background-color: black;
+    border: 1px solid rgba(76, 183, 240, 0.966);
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .commentSection form button i {
+    color: black;
+}
+
+[dark="yes"] .commentSection form button {
+    background-color: rgba(76, 183, 240, 0.966);
 }

@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
-import "./Personal-Post-Detail.css";
+import "./Post-Info.css";
 
 const Personal_Post_Detail = () => {
     const { id } = useParams();
@@ -86,8 +86,8 @@ const Personal_Post_Detail = () => {
 
     return (
         <div className="post-detail">
-            <div className="user"><Link to={"/"}>{detailInfo?.nama}</Link></div>
-            <div className="contents">
+            <section className="user"><Link to={"/"}>{detailInfo?.nama}</Link></section>
+            <section className="contents">
                 {errorInfo? <p>{errorInfo.message}</p> : infoIsLoad ? <p>Loading...</p> :
                     <div className="instagram-style">
                         <div className="carousel-wrapper">
@@ -125,8 +125,8 @@ const Personal_Post_Detail = () => {
                         </div>
                     </div>
                 }
-            </div>
-            <div className="comment-section">
+            </section>
+            <section className="comment-section">
                 {noComments ? <p>{noComments.message}</p> : commentIsLoad ? <p>Loading...</p> : 
                     <div className="comments-display">
                         <div className="comment-list">
@@ -138,10 +138,10 @@ const Personal_Post_Detail = () => {
                                 </div>
                             ))}
                         </div>
-                        <Comment postId={id} token={token}/>
                     </div>
                 }
-            </div>
+                <Comment postId={id} token={token}/>
+            </section>
         </div>
     )
 }

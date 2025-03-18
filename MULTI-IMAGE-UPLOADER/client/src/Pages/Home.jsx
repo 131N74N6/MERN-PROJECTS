@@ -43,17 +43,17 @@ const Home = () => {
         <div className="home">
             <header>
                 <form onSubmit={handleSearch} title='search-field'>
-                    <input type="search" ref={search} name='search' placeholder='cari disini...'/>
+                    <input type="search" ref={search} name='search' placeholder='cari postingan...'/>
                     <button type='submit'><i className="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </header>
-            <div className="display-post">
+            <section className="display-post">
                 {allPostIsLoad ? <Loading/> : allPostError ? <p>{allPostError.message}</p> : 
                     allPost?.map((all, index) => (
                         <Post key={`all-${index+1}`} data={all} route={`/post/${all.id}`}/>
                     ))
                 }
-            </div>
+            </section>
             <Header/>
         </div>
     )

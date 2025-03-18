@@ -40,7 +40,6 @@
     overflow: hidden;
 }
 
-
 .carousel-wrapper {
     position: relative;
     overflow: hidden;
@@ -175,6 +174,12 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    height: 260px;
+    overflow-y: scroll;
+}
+
+.comments-display::-webkit-scrollbar {
+    display: none;
 }
 
 .comment-list {
@@ -211,54 +216,58 @@
     width: 100%;
 }
 
-/* ==================== RESPONSIVE DESIGN ==================== */
-@media (max-width: 768px) {
-    .post-detail {
-        padding: 0.5rem;
-    }
-    
-    .nav-btn {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .caption-section {
-        padding: 0.75rem;
-    }
-    
-    .action-buttons {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .action-buttons button, .action-buttons a {
-        width: 100%;
-        text-align: center;
-    }
+/* ==================== DARK THEME ==================== */
+[dark="yes"] .post-detail {
+    background-color: black;
 }
 
-@media (max-width: 480px) {
-    .pagination-dots {
-        bottom: 10px;
-    }
-    
-    .dot {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .comment-section {
-        padding: 1rem;
-    }
-    
-    .comment-list > div {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.75rem;
-    }
-    
-    .comment-list div > div:nth-child(2) {
-        position: static;
-        order: 3;
-    }
+[dark="yes"] .post-detail .user {
+    color: rgba(76, 183, 240, 0.966);
+    background-color: black;
+}
+
+
+[dark="yes"] .post-detail .user a {
+    text-decoration: none;
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .instagram-style {
+    background-color: black;
+    box-shadow: 0 0 6px rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .caption-section {
+    background-color: black;
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .caption-section span {
+    color: rgba(161, 221, 253, 0.966);
+}
+
+[dark="yes"] .action-buttons button {
+    background-color: rgba(76, 183, 240, 0.966);
+    color: black;
+}
+
+[dark="yes"] .action-buttons a {
+    color: rgba(76, 183, 240, 0.966);
+    text-decoration: none;
+}
+
+[dark="yes"] .comment-section {
+    background-color: black;
+    box-shadow: 0 0 6px rgba(76, 183, 240, 0.966);
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .comment-list > div {
+    background-color: #252424;
+}
+
+[dark="yes"] .comment-list div > div:nth-child(1), 
+[dark="yes"] .comment-list div > div:nth-child(2), 
+[dark="yes"] .comment-list div > div:nth-child(3) {
+    color: rgba(76, 183, 240, 0.966);
 }

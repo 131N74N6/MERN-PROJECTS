@@ -48,3 +48,28 @@
     min-height: 100dvh;
     padding: 0.8rem;
 }
+
+[dark="yes"] .home {
+    background-color: black;
+}
+
+[dark="yes"] .home header {
+    background-color: black;
+    box-shadow: 0 0 6px rgba(76, 183, 240, 0.966);
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .home header form input[type="search"] {
+    background-color: black;
+    color: rgba(76, 183, 240, 0.966);
+    border: 1px solid rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .home header form input[type="search"]::placeholder {
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .home header form button {
+    background-color: rgba(76, 183, 240, 0.966);
+    color: #0e0101;
+}

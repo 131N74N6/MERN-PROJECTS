@@ -1,8 +1,8 @@
 import db from "../config/db-connection.js";
-import fs from "fs-extra";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import fs from "fs-extra";
 
 dotenv.config();
 
@@ -77,36 +77,43 @@ const signIn = async (req, res) => {
 }
 
 const deleteAccount = async (req, res) => {
-    let database;
+    let database
     try {
         database = await db.getConnection();
-        await database.beginTransaction();
+        database.beginTransaction();
 
-        const sql1 = "SELECT gambar FROM media WHERE postingan_id = ?";
-        const id = req.params.id;
-        const [media] = await database.query(sql1, [id]);
-        await Promise.all(media.map((gb) => 
-            fs.promises.unlink(`uploads/${gb.gambar}`).catch(() => {}
-        )));
-        
-        const sql2 = "DELETE FROM media WHERE postingan_id = ?";
-        await database.query(sql2, [id]);
-        
-        const sql3 = "DELETE FROM komentar WHERE postingan_id = ?";
-        await database.query(sql3, [id]);
+        const userId = req.user.id;
+        const sql1 = `SELECT media.id, media.gambar FROM media 
+                JOIN postingan ON media.postingan_id = postingan.id 
+                WHERE postingan.user_id = ?`;
+        const [result1] = await database.query(sql1, [userId]);
 
-        const sql4 = "DELETE FROM postingan WHERE user_id = ?";
-        await database.query(sql4, [id]);
+        await Promise.all(
+            result1.map((rs1) => fs.promises.unlink(`uploads/${rs1.gambar}`).catch(() => {}))
+        );
         
-        const sql5 = "DELETE FROM user WHERE id = ?";
-        await database.query(sql5, [id]);
+        const sql2 = `DELETE FROM media
+            JOIN postingan ON media.postingan_id = postingan.id
+            WHERE postingan.user_id = ?`;
+        await database.query(sql2, [userId]);
 
+        const sql3 = `DELETE FROM komentar 
+            JOIN postingan ON komentar.postingan_id = postingan.id 
+            WHERE postingan.user_id = ?`;
+        await database.query(sql3, [userId]);
+
+        const sql4 = `DELETE FROM postingan WHERE postingan.user_id = ?`;
+        await database.query(sql4, [userId]);
+
+        const sql5 = `DELETE FROM user WHERE id = ?`;
+        await database.query(sql5, [userId]);
+        
         await database.commit();
-        res.json({ status: 200, msg: "AKUN BERHASIL DIHAPUS! SILAHKAN SIGN-UP UNTUK MENGAKSES" });
+        res.status(200).json({ status: 200, msg: "AKUN BERHASIL DIHAPUS" });
     } 
     catch (error) {
         if (database) await database.rollback();
-        res.status(500).json({ status: 500, msg: "INTERNAL SERVER ERROR" });
+        res.status(500).json({ status: 500, msg: error.message || "INTERNAL SERVER ERROR" });
     }
     finally {
         if (database) database.release();

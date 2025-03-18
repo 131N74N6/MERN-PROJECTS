@@ -32,13 +32,13 @@ const Result = () => {
                 <div>Result for {keyword}</div>
                 <Link to={"/home"}>Kembali</Link>
             </header>
-            <div className="search-result">
+            <section className="search-result">
                 {searchedError ? <p>{searchedError.message}</p> : isSearchedLoad ? <Loading/> : 
                     searched?.map((search, i) => (
                         <Post data={search} key={`searched-${i+1}`} route={`/post/${search.id}`}/>
                     ))
                 }
-            </div>
+            </section>
             <Header/>
         </section>
     )

@@ -13,6 +13,8 @@ const SignUp = lazy(() => import("./Services/SignUp"));
 const Personal = lazy(() => import("./Pages/Personal"));
 const Result = lazy(() => import("./Pages/Result"));
 const Personal_Post_Detail = lazy(() => import("./Pages/Personal-Post-Detail"));
+const Config = lazy(() => import("./Pages/About"));
+const Personal_ = lazy(() => import("./Pages/Personal_"));
 
 const queryClient = new QueryClient();
 
@@ -24,11 +26,13 @@ const App = () => {
                     <Router>
                         <Routes>
                             <Route path="/" element={<Protected><Personal/></Protected>}/>
+                            <Route path="/user/:id_pengguna" element={<Protected><Personal_/></Protected>}/>
                             <Route path="/add" element={<Protected><AddPost/></Protected>}/>
                             <Route path="/post/:id" element={<Protected><PostInfo/></Protected>}/>
                             <Route path="/personal/:id" element={<Protected><Personal_Post_Detail/></Protected>}/>
                             <Route path="/home" element={<Protected><Home/></Protected>}/>
                             <Route path="/search" element={<Protected><Result/></Protected>}/>
+                            <Route path="/about" element={<Protected><Config/></Protected>}/>
                             <Route path="/sign-in" element={<SignIn/>}/>
                             <Route path="/sign-up" element={<SignUp/>}/>
                         </Routes>

@@ -63,7 +63,7 @@ const PostInfo = () => {
 
     return (
         <div className="post-detail">
-            <div className="user">{detailInfo?.nama}</div>
+            <div className="user"><Link to={`/user/${detailInfo?.id_pengguna}`}>{detailInfo?.nama}</Link></div>
             <div className="contents">
                 {errorInfo? <p>{errorInfo.message}</p> : infoIsLoad ? <p>Loading...</p> :
                     <div className="instagram-style">
@@ -114,9 +114,9 @@ const PostInfo = () => {
                                 </div>
                             ))}
                         </div>
-                        <Comment postId={id} token={token}/>
                     </div>
                 }
+                <Comment postId={id} token={token}/>
             </div>
         </div>
     )

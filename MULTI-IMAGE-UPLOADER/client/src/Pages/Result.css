@@ -3,6 +3,9 @@
     box-shadow: 0 0 6px rgba(0,0,0,0.323);
     position: sticky;
     background-color: white;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-around;
     top: 0;
     z-index: 100;
 }
@@ -14,4 +17,20 @@
     gap: 0.4rem;
     padding: 0.8rem;
     min-height: 100dvh;
+}
+
+
+[dark="yes"] .display-result {
+    background-color: black;
+}
+
+[dark="yes"] .display-result header {
+    background-color: black;
+    box-shadow: 0 0 6px rgba(76, 183, 240, 0.966);
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .display-result header a {
+    text-decoration: none;
+    color: rgba(76, 183, 240, 0.966);
 }

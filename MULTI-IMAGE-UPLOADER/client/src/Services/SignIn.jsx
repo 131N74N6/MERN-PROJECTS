@@ -23,7 +23,7 @@ export default function SignIn() {
         onSuccess: (data) => {
             queryClient.invalidateQueries(["user"]);
             setIdentity({ email: "", password: "" });
-            localStorage.setItem('token', data.data.token)
+            localStorage.setItem('token', data.data.token);
             navigate("/");
         },
         onError: (error) => {

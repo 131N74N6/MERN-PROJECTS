@@ -17,3 +17,26 @@
     text-decoration: none;
     font-size: 1.5rem;
 }
+
+.dark-mode input[type="checkbox"] {
+    display: none;
+}
+
+.dark-mode label {
+    font-size: 1.55rem;
+    cursor: pointer;
+    color: rgb(41, 41, 146);
+}
+
+[dark="yes"] .header-nav-bar {
+    box-shadow: 0 0 6px rgba(76, 183, 240, 0.966);
+    background-color: black;
+}
+
+[dark="yes"] .header-nav-bar nav a {
+    color: rgba(76, 183, 240, 0.966);
+}
+
+[dark="yes"] .dark-mode label {
+    color: rgba(76, 183, 240, 0.966);
+}
