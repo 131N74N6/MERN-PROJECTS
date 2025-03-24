@@ -18,7 +18,8 @@ const About = () => {
     const removeAllMutation = useMutation({
         mutationFn: async () => {
             const request = await fetch(`http://localhost:3602/user-post/delete-all`, { 
-                method: "DELETE"
+                method: "DELETE",
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             if (request.ok) {
                 const response = await request.json();
@@ -33,7 +34,10 @@ const About = () => {
 
     const removeMutationAccount = useMutation({
         mutationFn: async () => {
-            const request = await fetch(`http://localhost:3602/auth/delete-account`);
+            const request = await fetch(`http://localhost:3602/auth/delete-account`, { 
+                method: "DELETE",
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
             if (request.ok) {
                 const response = await request.json();
                 return response;

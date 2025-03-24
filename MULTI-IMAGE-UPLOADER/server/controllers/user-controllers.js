@@ -84,25 +84,25 @@ const deleteAccount = async (req, res) => {
 
         const userId = req.user.id;
         const sql1 = `SELECT media.id, media.gambar FROM media 
-                JOIN postingan ON media.postingan_id = postingan.id 
-                WHERE postingan.user_id = ?`;
+            JOIN postingan ON media.postingan_id = postingan.id 
+            WHERE postingan.user_id = ?`;
         const [result1] = await database.query(sql1, [userId]);
 
         await Promise.all(
             result1.map((rs1) => fs.promises.unlink(`uploads/${rs1.gambar}`).catch(() => {}))
         );
         
-        const sql2 = `DELETE FROM media
+        const sql2 = `DELETE media FROM media
             JOIN postingan ON media.postingan_id = postingan.id
             WHERE postingan.user_id = ?`;
         await database.query(sql2, [userId]);
 
-        const sql3 = `DELETE FROM komentar 
+        const sql3 = `DELETE komentar FROM komentar 
             JOIN postingan ON komentar.postingan_id = postingan.id 
             WHERE postingan.user_id = ?`;
         await database.query(sql3, [userId]);
 
-        const sql4 = `DELETE FROM postingan WHERE postingan.user_id = ?`;
+        const sql4 = `DELETE FROM postingan WHERE user_id = ?`;
         await database.query(sql4, [userId]);
 
         const sql5 = `DELETE FROM user WHERE id = ?`;

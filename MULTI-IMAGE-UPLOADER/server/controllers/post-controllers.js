@@ -215,12 +215,12 @@ const deleteAllUserPost = async (req, res) => {
             fs.promises.unlink(`uploads/${media.gambar}`).catch(() => {/* ignore error */})
         ));
 
-        const sql2 = `DELETE FROM media 
+        const sql2 = `DELETE media FROM media 
             JOIN postingan ON media.postingan_id = postingan.id 
             WHERE postingan.user_id = ?`;
         await database.query(sql2, [userId]);
 
-        const sql3 = `DELETE FROM komentar 
+        const sql3 = `DELETE komentar FROM komentar 
             JOIN postingan ON komentar.postingan_id = postingan.id 
             WHERE postingan.user_id = ?`;
         await database.query(sql3, [userId]);
