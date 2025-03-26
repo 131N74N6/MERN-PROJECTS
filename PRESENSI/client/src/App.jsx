@@ -8,6 +8,7 @@ const Attendance = lazy(() => import("./Pages/Attendance"));
 const Personal = lazy(() => import("./Pages/Personal"));
 const ListSiswa = lazy(() => import("./Pages/List-Siswa"));
 const Pelajaran = lazy(() => import("./Pages/Pelajaran"));
+const Identity = lazy(() => import("./Pages/Data-Diri"));
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                     <Route path="/personal" element={<Personal/>}/>
                     <Route path="/siswa" element={<ListSiswa/>}/>
                     <Route path="/pelajaran" element={<Pelajaran/>}/>
+                    <Route path="/identity" element={<Identity/>}/>
                 </Routes>
             </Router>
         </Suspense>

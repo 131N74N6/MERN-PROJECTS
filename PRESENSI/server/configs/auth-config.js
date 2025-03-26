@@ -12,7 +12,7 @@ const auth = (req, res, next) => {
 
     try {
         const verified = jwt.verify(token, process.env.SECRET, { algorithms: ['HS256'] });
-        req.user = verified;
+        req.user = { id: verified.id, username: verified.username, password: verified.password };
         next();
     } 
     catch (error) {
