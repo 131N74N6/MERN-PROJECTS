@@ -1,21 +1,53 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
 import BackButton from "../Components/Back-Button";
 
 export default function Attendance() {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
     const date = new Date;
     const formattedDate = date.toISOString();
     const [presensi, setPresensi] = useState({ hariTanggal: formattedDate.slice(0,10), status_kehadiran: "Hadir" });
 
+    useEffect(() => {
+        if (!token) {
+            navigate("/sign-in");
+        }
+    }, [token]);
+    
     const selectStatus = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         setPresensi((prev) => ({ ...prev, [name]: value }));
     }
 
+    const mutationAttendance = useMutation({
+        mutationFn: async () => {
+            const request = await fetch(`http://localhost:3555/attendance/fill-attendance`, { 
+                method: "POST", 
+                headers: { "Authorization": `Bearer ${token}` },
+                body: JSON.stringify(presensi)
+            });
+            if (request.ok) {
+                const response = await request.json();
+                return response;
+            }
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["presensi-user"]);
+        },
+        onError: (error) => {
+            console.log(error.response?.data?.msg || error.message);
+        }
+    });
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(presensi);
+        mutationAttendance.mutate();
     }
 
     return (
@@ -31,7 +63,9 @@ export default function Attendance() {
                             <option value={"Sakit"}>Sakit</option>
                             <option value={"Izin"}>Izin</option>
                         </select>
-                        <button type="submit" className="text-md p-2 rounded-lg cursor-pointer bg-green-700 text-white">Kirim Presensi</button>
+                        <button type="submit" className="text-md p-2 rounded-lg cursor-pointer bg-green-700 text-white" disabled={mutationAttendance.isPending}>
+                            {mutationAttendance.isPending ? "Proses..." : "Kirim Presensi"}
+                        </button>
                     </form>
                 </main>
                 <BackButton/>

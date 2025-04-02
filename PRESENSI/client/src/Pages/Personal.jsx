@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "../Components/Header";
 
 export default function Personal() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            navigate("/sign-in");
+        }
+    }, [token]);
 
     return (
         <>

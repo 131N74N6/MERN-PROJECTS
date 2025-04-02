@@ -1,5 +1,11 @@
-export default function Protected() {
-    return (
-        <div>Protected</div>
-    )
+import { Navigate } from "react-router-dom";
+
+export default function Protected({ children }) {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+        return <Navigate to="/sign-in" replace />;
+    }
+    
+    return children;
 }

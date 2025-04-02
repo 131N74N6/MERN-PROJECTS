@@ -1,17 +1,43 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
     const [user, setUser] = useState({ username: "", kata_sandi: "" });
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const handleInput = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         setUser((prev) => ({ ...prev, [name]: value }));
     }
+
+    const mutationSignIn = useMutation({
+        mutationFn: async () => {
+            const request = await fetch(`http://localhost:3555/user/sign-in`, { 
+                method: "POST", 
+                body: JSON.stringify(user)
+            });
+            if (request.ok) {
+                const response = await request.json();
+                return response;
+            }
+        },
+        onSuccess: (data) => {
+            queryClient.invalidateQueries(["user-siswa"]);
+            setUser({ username: "", kata_sandi: "" });
+            localStorage.setItem('token', data.token); 
+            navigate("/");
+        },
+        onError: (error) => {
+            console.log(error.response?.data?.msg || error.message);
+        }
+    });
     
     const handleSignIn = (event) => {
         event.preventDefault();
-        console.log(user);
+        mutationSignIn.mutate();
     }
 
     return (
